@@ -15,18 +15,22 @@ namespace csight {
 
 static const size_t Spawn_DATA_SIZE = 56;
 
-static const size_t den_t_SIZE = 24;
+static const size_t arceus_spawn_group_t_DATA_SIZE = 1088;
 
-enum class SwshDenType {
-  Vanilla = 0,
-  IslandOfArmor = 1,
-  CrownTundra = 2,
-};
+static const size_t SpawnPair_DATA_SIZE = 128;
+
+static const size_t den_t_SIZE = 24;
 
 enum class RngType {
   Xoroshiro = 0,
   Xorshift = 1,
   Lcrng = 2,
+};
+
+enum class SwshDenType {
+  Vanilla = 0,
+  IslandOfArmor = 1,
+  CrownTundra = 2,
 };
 
 enum class SupportedGame : uint64_t {
@@ -369,6 +373,6 @@ pk8_t *swsh_read_wild_legend_pokemon();
 
 pk8_t *swsh_read_wild_pokemon();
 
-} // extern "C"
+}  // extern "C"
 
-} // namespace csight
+}  // namespace csight

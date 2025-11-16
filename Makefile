@@ -39,13 +39,14 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 
 APP_TITLE		:=		CaptureSight
-APP_VERSION 	:= 		0.13.0b2
+APP_VERSION 	:= 		0.13.0
 
 TARGET		:=	capturesight
 BUILD		:=	build
-SOURCES		:=	src
+SOURCES		:=	src libs/libultrahand/common libs/libultrahand/libultra/source
 DATA		:=	data
-INCLUDES	:=	libs/libtesla/include libs/csight-core/c-export libs/Atmosphere-libs/libstratosphere/source/dmnt
+INCLUDES	:=	libs/libultrahand/common libs/libultrahand/libultra/include libs/libultrahand/libtesla/include \
+				libs/csight-core/c-export libs/Atmosphere-libs/libstratosphere/source/dmnt
 
 NO_ICON		:=  1
 
@@ -60,12 +61,12 @@ RUST_LIB	:= $(RUST_DIR)/target/aarch64-none-elf/release/libcsight_core.a
 #---------------------------------------------------------------------------------
 ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 
-CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
+CFLAGS	:=	-g -Wall -O2 -ffunction-sections -fdata-sections -flto -fuse-linker-plugin \
 			$(ARCH) $(DEFINES)
 
 CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 
-CXXFLAGS	:= $(CFLAGS) -fno-exceptions -std=c++20
+CXXFLAGS	:= $(CFLAGS) -fno-exceptions -ffunction-sections -fdata-sections -std=c++20
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
